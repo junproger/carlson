@@ -6,7 +6,7 @@
 		let carlson = document.querySelector('#carlson'); // Изображение фигуры Карлсона
 		let malina = document.querySelector('#malina'); // Изображение банки с варением
 		let reply = document.querySelector('#reply'); // Реплика Карлсона, роняющего банку
-		malina.src = ''; // Банка с варением еще не падает
+		malina.hidden = true; // Банка с варением еще не падает
 		carlson.src = 'carlson1.gif';
 		malina.style.display = 'none';
 		malina.style.left = displWidth/2 + 'px';
@@ -16,7 +16,7 @@
 			if (flyway < displWidth/2 - 60) {
 			malina.style.display = 'none';
 			carlson.src = 'carlson1.gif';
-			malina.src = '';
+			malina.hidden = true;
 			flyjar = 100; 
 			flyway += 4;
 				}
@@ -28,6 +28,7 @@
 			malina.style.display = 'block';
 			carlson.src = 'carlson12.gif';
 			malina.src = 'malina-2-0.gif';
+			malina.hidden = false;
 			flyway += 4;
 			flyjar += 8;
 				}
@@ -35,6 +36,7 @@
 			malina.style.display = 'block';
 			carlson.src = 'carlson2.gif';
 			malina.src = 'malina-3-0.gif';
+			malina.hidden = false;
 			flyway += 2;
 			flyjar += 8;
 				}
@@ -42,6 +44,7 @@
 			malina.style.display = 'block';
 			malina.src = 'malina-4-0.gif';
 			reply.textContent = '';
+			malina.hidden = false;
 			flyway += 2;
 			flyjar += 8;
 				}
@@ -50,11 +53,13 @@
 			malina.style.display = 'block';
 			malina.src = 'malina-6-0.gif';
 			flyjar = displHeight - 60;
+			malina.hidden = false;
 				}
 			if (flyway > displWidth) {
 			malina.style.left = displWidth/2 + 'px'; // Возврат к исходным значениям
 			malina.style.display = 'none';
 			carlson.src = 'carlson1.gif';
+			malina.hidden = true;
 			malina.src = '';
 			flyway = -100;
 			flyjar = 100;
