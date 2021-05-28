@@ -1,59 +1,66 @@
-		let flyway = 0;
-		let flyjar = 100;
-		let displHeight = window.innerHeight;
-		let displWidth = Math.floor(window.innerWidth/8)*8;
-		let marker = document.querySelector('#marker');
-		let carlson = document.querySelector('#carlson');
-		let malina = document.querySelector('#malina');
-		let reply = document.querySelector('#reply');
+		let flyjar = 100; // Полет банки от верхнего края top
+		let flyway = -100; // Полет Карлсона от левого края left
+		let displHeight = Math.floor(window.innerHeight/8)*8; // Высота дисплея от 8 пикселей
+		let displWidth = Math.floor(window.innerWidth/8)*8; // Ширина дисплея от 8 пикселей
+		let marker = document.querySelector('#marker'); // Маркер середины экрана по ширине
+		let carlson = document.querySelector('#carlson'); // Изображение фигуры Карлсона
+		let malina = document.querySelector('#malina'); // Изображение банки с варением
+		let reply = document.querySelector('#reply'); // Реплика Карлсона, роняющего банку
+		malina.src = ''; // Банка с варением еще не падает
+		carlson.src = 'carlson1.gif';
+		malina.style.display = 'none';
+		malina.style.left = displWidth/2 + 'px';
 		marker.style.left = displWidth/2 + 'px';
 		reply.style.left = displWidth/2 - 60 + 'px';
-		malina.style.left = displWidth/2 + +20 + 'px';
-		malina.style.display = 'none';
 		function animation() {
 			if (flyway < displWidth/2 - 60) {
-			carlson.src = 'carlson1.gif';
 			malina.style.display = 'none';
+			carlson.src = 'carlson1.gif';
+			malina.src = '';
+			flyjar = 100; 
 			flyway += 4;
-				} 
-			if (flyway == displWidth/2 - 60) { 
-			console.log('Достигли середины экрана ' + '(' + displWidth + '-' + '60) / 2' + ' = ' + flyway);
-			reply.textContent = ' Ох, ёпт!.. ';
-			}
-			if (flyway > displWidth/2 - 80) { 
-			carlson.src = 'carlson12.gif';
-			malina.style.display = 'block';
-			malina.src = 'malina-2-0.gif';
-			flyway += 4;
-			flyjar += 4;
 				}
-			if (flyway > displWidth/2 - 60) { 
-			carlson.src = 'carlson2.gif';
+			if (flyway == displWidth/2 - 60) {
+			console.log('Достигнута середина экрана ' + displWidth + '/2' + '-' + '60' + ' = ' + flyway);
+				}
+			if (flyway > displWidth/2 - 80) {
+			reply.textContent = ' Ох, ёпт!.. ';
 			malina.style.display = 'block';
-			malina.src = 'malina-3-0.gif';
+			carlson.src = 'carlson12.gif';
+			malina.src = 'malina-2-0.gif';
 			flyway += 4;
 			flyjar += 8;
 				}
-			if (flyjar > displHeight/2 - 80) { 
+			if (flyway > displWidth/2 - 60) {
+			malina.style.display = 'block';
+			carlson.src = 'carlson2.gif';
+			malina.src = 'malina-3-0.gif';
+			flyway += 2;
+			flyjar += 8;
+				}
+			if (flyjar > displHeight/2 - 60) {
 			malina.style.display = 'block';
 			malina.src = 'malina-4-0.gif';
 			reply.textContent = '';
+			flyway += 2;
 			flyjar += 8;
 				}
-			if (flyjar > displHeight - 80) { 
-			malina.style.left = displWidth/2 - 40 + 'px';
+			if (flyjar > displHeight - 60) {
+			malina.style.left = displWidth/2 - 60 + 'px';
 			malina.style.display = 'block';
 			malina.src = 'malina-6-0.gif';
-			flyjar = displHeight - 80;
+			flyjar = displHeight - 60;
 				}
-			if (flyway > displWidth) { 
-			flyjar = 100;
-			flyway = -100;
-			carlson.src = 'carlson1.gif';
-			malina.style.left = displWidth/2 + +20 + 'px';
+			if (flyway > displWidth) {
+			malina.style.left = displWidth/2 + 'px'; // Возврат к исходным значениям
 			malina.style.display = 'none';
-			}
+			carlson.src = 'carlson1.gif';
+			malina.src = '';
+			flyway = -100;
+			flyjar = 100;
+				}
 			carlson.style.left = flyway + 'px';
 			malina.style.top = flyjar + 'px';
-		}
+			}
 		setInterval(animation, 100);
+		
